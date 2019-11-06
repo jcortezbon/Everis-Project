@@ -4,7 +4,7 @@ pipeline {
     agent {
         dockerfile {
             filename 'dockerfile.build'
-            dir 'build'
+            dir '.'
             label 'mydocker'
             additionalBuildArgs '--build-arg version=1.0.2'
             args '-v /tmp:/tmp'
