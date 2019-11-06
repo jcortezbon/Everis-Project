@@ -25,10 +25,8 @@ pipeline {
         
         stage('Sonar Publish') {
             steps {
+                echo 'Testing...'
                 // One or more steps need to be included within the steps block.
-            }
-
-            tools {
             }
         }
 
