@@ -10,7 +10,6 @@ pipeline {
             args '-v /tmp:/tmp'
         }
     }
-    agent any
     stages {
         stage('Git Checkout') {
             steps {
