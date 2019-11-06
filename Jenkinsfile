@@ -23,7 +23,7 @@ pipeline {
             }
         }
         
-        stage('Sonar Publish') {
+        stage('SonarQube') {
             steps {
                 echo 'Testing...'
                 // One or more steps need to be included within the steps block.
@@ -32,7 +32,8 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                echo 'Deploying...'
+                echo '------------------Deploying...----------------'
+                
             }
         }
     }
