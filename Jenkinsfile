@@ -1,6 +1,15 @@
 @Library('my-shared-library@master') _
 
 pipeline {
+    agent {
+        dockerfile {
+            filename 'dockerfile.build'
+            dir 'build'
+            label 'mydocker'
+            additionalBuildArgs '--build-arg version=1.0.2'
+            args '-v /tmp:/tmp'
+        }
+    }
     agent any
     stages {
         stage('Git Checkout') {
@@ -33,7 +42,6 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo '------------------Deploying...----------------'
-                
             }
         }
     }
