@@ -1,4 +1,4 @@
-@Library('my-shared-library@dockerfile') _
+@Library('my-shared-library@master') _
 
 pipeline {
     agent {
