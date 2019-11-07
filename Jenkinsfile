@@ -15,7 +15,7 @@ pipeline {
             steps {
                 echo '-----------------conectando a VM...--------------'
                 withCredentials([sshUserPrivateKey(credentialsId: '7106d0fd-bf4b-47fc-9d16-181c9f287274', keyFileVariable: 'vm', passphraseVariable: 'pass', usernameVariable: 'user-vm')]) {
-                    sh 'ls -la'
+                    sh 'ssh -i vm user-vm'
                 }
             }
         }
