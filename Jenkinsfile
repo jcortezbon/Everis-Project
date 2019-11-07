@@ -14,8 +14,8 @@ pipeline {
         stage('build') {
             steps {
                 echo '-----------------conectando a VM...--------------'
-                sshagent(['7106d0fd-bf4b-47fc-9d16-181c9f287274']) {
-                sh 'ls -la'
+                withCredentials([sshUserPrivateKey(credentialsId: '7106d0fd-bf4b-47fc-9d16-181c9f287274', keyFileVariable: 'vm', passphraseVariable: 'pass', usernameVariable: 'user-vm')]) {
+                    sh 'ls -la'
                 }
             }
         }
