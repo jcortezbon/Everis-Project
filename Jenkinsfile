@@ -14,7 +14,7 @@ pipeline {
         stage('build') {
             steps {
                 sshagent (credentials: ['deploy-dev']) {
-                    sh 'ssh -o StrictHostKeyChecking=no -l cloudbees 191.238.217.126 uname -a'
+                    sh 'ssh -o StrictHostKeyChecking=no -l cloudbees 191.238.217.126:2299 uname -a'
                 }
             }
         }
