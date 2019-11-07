@@ -27,6 +27,7 @@ pipeline {
         
         stage('build && SonarQube analysis') {
             steps {
+                echo '------------------sonar...---------------'
  //               withSonarQubeEnv('SonarQubeSr') {
                     // Optionally use a Maven environment you've configured already
  //                   withMaven(maven:'Maven3.6.2') {
