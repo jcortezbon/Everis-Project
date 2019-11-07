@@ -1,5 +1,13 @@
 @Library('my-shared-library@master') _
 
+def remote = [:]
+    remote.name = 'root'
+    remote.host = '191.238.217.126'
+    remote.port = 4432
+    remote.user = 'root'
+    remote.password = 'admin123'
+    remote.allowAnyHosts = true
+
 pipeline {
     agent any
     stages {
@@ -11,35 +19,29 @@ pipeline {
                 )
             }
         }
-        stage('build') {
+        stage('Compile') {
             steps {
-                sshagent (credentials: ['deploy-dev']) {
-                    echo "SSH_AUTH_SOCK"
-                    sh 'ssh -o StrictHostKeyChecking=no -l cloudbees 191.238.217.126 uname -a'
-                }
+                sshCommand remote: remote, command: "cd /var/java-app/simple-app && mvn compile"
+                //sshCommand remote: remote, command: ""
             }
         }
-        stage('Test') {
+        stage('package') {
             steps {
-                echo '------------------Testing...---------------'
+                sshCommand remote: remote, command: "pwd"
+                //sshCommand remote: remote, command: ""
             }
         }
-        
-        stage('build && SonarQube analysis') {
+        stage('test && SonarQube analysis') {
             steps {
-                echo '------------------sonar...---------------'
- //               withSonarQubeEnv('SonarQubeSr') {
-                    // Optionally use a Maven environment you've configured already
- //                   withMaven(maven:'Maven3.6.2') {
- //                       sh 'mvn clean package sonar:sonar'
- //                   }
- //               }
+                sshCommand remote: remote, command: "pwd"
+                //sshCommand remote: remote, command: ""
             }
         }
-
-        stage('Deploy') {
+      
+         stage('deploy') {
             steps {
-                echo '------------------Deploying...----------------'
+                sshCommand remote: remote, command: "pwd"
+                //sshCommand remote: remote, command: ""
             }
         }
     }
