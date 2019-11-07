@@ -1,15 +1,7 @@
 @Library('my-shared-library@master') _
 
 pipeline {
-    agent {
-        dockerfile {
-            filename 'dockerfile.build'
-            dir '.'
-            label 'mydocker'
-            additionalBuildArgs '--build-arg version=1.0.2'
-            args '-v /tmp:/tmp'
-        }
-    }
+    agent any
     stages {
         stage('Git Checkout') {
             steps {
@@ -19,10 +11,10 @@ pipeline {
                 )
             }
         }
-        stage('Build') {
+        stage('build') {
             steps {
                 echo 'Building...'
-                sh 'ls -la'
+                sh 'mvn clean compile'
             }
         }
         stage('Test') {
@@ -31,8 +23,12 @@ pipeline {
             }
         }
         
-        stage('SonarQube') {
+        stage('SonarQube Analysis') {
             steps {
+                def scannerhome = tool 'ScannerTool';
+                withSonarQubeEnv ('SonarQubeSr') {
+                sh """${scannerhome}/bin/sonar-runer -D sonar.login=admin -D sonar.password=admin"""
+                }
                 echo 'Testing...'
                 // One or more steps need to be included within the steps block.
             }
