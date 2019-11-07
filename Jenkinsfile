@@ -23,14 +23,11 @@ pipeline {
             }
         }
         
-        stage('SonarQube Analysis') {
+        stage('Example Build') {
+            agent { docker 'maven:3-alpine' } 
             steps {
-                def scannerhome = tool 'ScannerTool';
-                withSonarQubeEnv ('SonarQubeSr') {
-                sh """${scannerhome}/bin/sonar-runer -D sonar.login=admin -D sonar.password=admin"""
-                }
-                echo 'Testing...'
-                // One or more steps need to be included within the steps block.
+                echo 'Hello, Maven'
+                sh 'mvn --version'
             }
         }
 
