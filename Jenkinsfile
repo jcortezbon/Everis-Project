@@ -23,11 +23,14 @@ pipeline {
             }
         }
         
-        stage('Example Build') {
-            agent { docker 'maven:3-alpine' } 
+        stage('build && SonarQube analysis') {
             steps {
-                echo 'Hello, Maven'
-                sh 'mvn --version'
+                withSonarQubeEnv('SonarQubeSr') {
+                    // Optionally use a Maven environment you've configured already
+                    withMaven(maven:'mymaven 3.6.2') {
+                        sh 'mvn clean package sonar:sonar'
+                    }
+                }
             }
         }
 
