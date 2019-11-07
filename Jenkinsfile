@@ -2,6 +2,7 @@
 
 pipeline {
     agent any
+    }
     stages {
         stage('Git Checkout') {
             steps {
@@ -13,8 +14,10 @@ pipeline {
         }
         stage('build') {
             steps {
-                echo '-----------------Building...--------------'
-                sh 'mvn clean compile'
+                echo '-----------------conectando a VM...--------------'
+                sshagent(['7106d0fd-bf4b-47fc-9d16-181c9f287274']) {
+                sh 'ls -la'
+                }
             }
         }
         stage('Test') {
