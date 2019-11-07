@@ -27,13 +27,13 @@ pipeline {
         }
         stage('package') {
             steps {
-                sshCommand remote: remote, command: "pwd"
+                sshCommand remote: remote, command: "cd /var/java-app/simple-app && mvn package"
                 //sshCommand remote: remote, command: ""
             }
         }
         stage('test && SonarQube analysis') {
             steps {
-                sshCommand remote: remote, command: "pwd"
+                sshCommand remote: remote, command: "cd /var/java-app/simple-app && mvn sonar: sonar \ -Dsonar.projectKey = ad \ -Dsonar.host.url = http: //191.238.217.126: 9000 \ -Dsonar.login = s"
                 //sshCommand remote: remote, command: ""
             }
         }
