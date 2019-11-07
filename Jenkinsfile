@@ -13,13 +13,13 @@ pipeline {
         }
         stage('build') {
             steps {
-                echo 'Building...'
+                echo '-----------------Building...--------------'
                 sh 'mvn clean compile'
             }
         }
         stage('Test') {
             steps {
-                echo 'Testing...'
+                echo '------------------Testing...---------------'
             }
         }
         
@@ -27,7 +27,7 @@ pipeline {
             steps {
                 withSonarQubeEnv('SonarQubeSr') {
                     // Optionally use a Maven environment you've configured already
-                    withMaven(maven:'mymaven 3.6.2') {
+                    withMaven(maven:'Maven3.6.2') {
                         sh 'mvn clean package sonar:sonar'
                     }
                 }
